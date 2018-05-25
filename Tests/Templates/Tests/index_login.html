@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+
+    {% load static %}
+    <link rel="shortcut icon" href="{% static "Tests/logo.ico" %}" type="image/x-icon">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="{% static "Tests/js/jquery-3.3.1.min.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="{% static "Tests/singin.css"  %}" rel="stylesheet">
+
+	  {% block javascript %}
+	  <script>
+	    function checkCode() {
+	      var input = document.getElementById("inputCode");
+	      var code = input.value;
+
+
+	      $.ajax({
+		      type: "GET",
+	        url: '/login/',
+	        data: 'code=' + code,
+	        dataType: 'json',
+	        success: function (data) {
+	            if (data.exist) {
+	                Cookies.set('student_id', code, { expires: 7 });
+	                window.location.replace('/')
+	            }
+
+	        }
+	      });
+
+	    };
+	  </script>
+	{% endblock %}
+
+    <title>ABC : Вход</title>
+  </head>
+
+ <body class="text-center">
+    <div class="form-signin" >
+		<a href="/">
+      <img class="mb-4" src="{% static "Tests/logo.svg"  %}" alt="" width="72" height="72">
+			</a>
+      <h1 class="h3 mb-3 font-weight-normal">Введи твой код</h1>
+      <label for="inpudCode" class="sr-only">Твой код</label>
+      <input type="text" name="student-code"id="inputCode" class="form-control" placeholder="Ваш код" required autofocus>
+
+      <button onclick="return checkCode()" class="btn btn-lg btn-primary btn-block btn-mid" id="okay" type="submit">Войти</button>
+	    <a href="/registration"  class="btn btn-lg btn-primary btn-block btn-end" id="registrate" role="button">Регистрация</a>
+
+      <p class="mt-5 mb-3 text-muted">&copy;2018</p>
+    </div>
+
+
+  </body>
+</html>

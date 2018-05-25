@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <!-- Required meta tags -->
+    <meta charset="utf-8">
+    {% load static %}
+  <link rel="shortcut icon" href="{% static "Tests/logo.ico" %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="{% static "Tests/js/jquery-3.3.1.min.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+		  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="{% static "Tests/logged.css"  %}" rel="stylesheet">
+
+	  {% block javascript %}
+		  <script>
+		  function logout() {
+		      Cookies.remove('student_id')
+			  window.location.replace('/')
+		  }
+
+		  $(function () {
+	      $('[data-toggle="tooltip"]').tooltip()
+	    });
+
+		  </script>
+		{% endblock %}
+    <title>ABC : Меню</title>
+  </head>
+
+ <body class="text-center">
+    <div class="form-signin">
+	    <a href="/">
+        <img class="mb-4" src="{% static "Tests/logo.svg"  %}" alt="" width="72" height="72">
+        </a>
+	    <h1 class="h3 mb-3 font-weight-normal">Привет, {{ student.name }} </h1>
+
+        <a href="learning/themes" class="btn btn-lg btn-primary btn-block btn-top" type="study">Обучение</a>
+	     <a href="test/themes" class="btn btn-lg btn-primary btn-block btn-mid" type="test">Тестирование</a>
+        <a href="/stat" class="btn btn-lg btn-primary btn-block btn-mid" type="result">Результаты</a>
+	    <button onclick="return logout()" class="btn btn-lg btn-primary btn-block btn-bot" type="logout">Выйти</button>
+        <p class="mt-5 mb-3 text-muted">&copy;2018 <br> Твой код : <b>{{ student.code }}</b></p>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  </body>
+</html>

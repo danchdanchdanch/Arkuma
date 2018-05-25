@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    {% load static %}
+  <link rel="shortcut icon" href="{% static "Tests/logo.ico" %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="{% static "Tests/js/jquery-3.3.1.min.js" %}"></script>
+    <script src="{% static "Tests/js/tools.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="{% static "Tests/singin.css"  %}" rel="stylesheet">
+
+	  {% block javascript %}
+	  <script>
+	    function checkCode() {
+	      var input = document.getElementById("inputCode");
+	      var code = input.value
+	      $.ajax({
+		      type: "GET",
+	        url: '/login/',
+	        data: 'code=' + code,
+	        dataType: 'json',
+	        success: function (data) {
+	            if (data.exist) {
+	                Cookies.set('student_id', code, { expires: 7 });
+	                window.location.replace('/')
+	            }
+
+	        }
+	      });
+
+	    };
+
+	    function createStudent() {
+	        var name = document.getElementById("name").value;
+	        var surname = document.getElementById("surname").value;
+			if (name != "" & surname != "") {
+			    $.ajax({
+		        type: "GET",
+		        async : false,
+	            url: '/API/createStudent',
+	            data: {"name":name,"surname":surname},
+	            dataType: 'json',
+	            success: function (data) {
+	                if (data["result"] == "okey") {
+	                    var alert = document.getElementById("content");
+	                    alert.className = "alert alert-success";
+	                    var html = "<h4 class=\"alert-heading\">Отлично, " + data["name"]+"</h4><p>Твой код : <b>"+data["code"]+"</b></p>";
+						renderQuestion(html);
+
+						document.getElementById("registrate").innerText = "Запомнил";
+						document.getElementById("registrate").onclick = function() {
+						    var in2Hours = 1/12;
+						    Cookies.set('student_id', data["code"], { expires: in2Hours });
+	                        window.location.replace('/')
+						}
+
+	                } else {
+	                    var alert = document.getElementById("content");
+	                    alert.className = "alert-danger";
+	                    var html = "<h4 class=\"alert-heading\">Упс!</h4><p>Что-то пошло не так, попробуй еще раз</p>";
+	                    renderQuestion(html);
+
+	                }
+
+	        }
+	      });
+			}
+
+	    }
+	  </script>
+	{% endblock %}
+
+    <title>ABC : Регистрация</title>
+  </head>
+
+ <body class="text-center">
+    <div class="form-signin" >
+		<a href="/">
+      <img class="mb-4" src="{% static "Tests/logo.svg"  %}" alt="" width="72" height="72">
+			</a>
+      <label for="inpudCode" class="sr-only">Твои данные</label>
+      <input type="text" name="student-code" id="name" class="form-control required" placeholder="Твое имя" required autofocus>
+      <input type="text" name="student-code" id="surname" class="form-control btn-mid required" placeholder="Фамилия" required >
+	     <div id="content" role="alert"></div>
+	    <button onclick="return createStudent();" class="btn btn-lg btn-primary btn-block btn-end" id="registrate" type="submit">Готово</button>
+
+      <p class="mt-5 mb-3 text-muted">&copy;2018</p>
+    </div>
+
+
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    {% load static %}
+	  <link rel="shortcut icon" href="{% static "Tests/logo.ico" %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="{% static "Tests/js/jquery-3.3.1.min.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+   		  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="{% static "Tests/question.css" %}" rel="stylesheet">
+	  <link href="{% static "Tests/result.css"  %}" rel="stylesheet">
+	<title>ABC : Результат обучения</title>
+  </head>
+
+ <body class="text-center">
+    <div class="form-signin" >
+	    <div class="text-center">
+      <a href="/">
+      <img class="mb-4" src="{% static "Tests/logo.svg"  %}" alt="" width="72" height="72">
+			</a>
+</div>
+	    <a href="/">
+		    <img class="mb-4 text-center" src="static/logo.svg" alt="" width="72" height="72">
+		</a>
+	        <div class="question-container">
+	                <h1 class="h4 mb-3 font-weight-normal">Результаты обучения для <br>{{ student.name }} {{student.surname}} </h1>
+
+	        <div class="row bg-warning">
+		         <a data-toggle="collapse" href="#questionsInLearning" role="button" aria-expanded="false" aria-controls="collapseExample">
+		        <i class="far fa-minus-square"></i>
+		         </a>
+	            <div class="col ">
+	                Вопросов на обучении
+	            </div>
+		        <div class="col">
+			        {{ quil_val }}
+		        </div>
+
+	        </div>
+	        <div class="collapse" id="questionsInLearning">
+
+			  {% for key, values in quil.items %}
+			        <div class="row">
+				        <div class="col">{{ key }}:</div>
+			            <div class="col">
+				        {{ values }}
+			            </div>
+			        </div>
+		        {% endfor %}
+			</div>
+
+	        <div class="row bg-success">
+				<a data-toggle="collapse" href="#questionsDone" role="button" aria-expanded="false" aria-controls="collapseExample">
+		        <i class="far fa-minus-square"></i>
+		         </a>
+
+	            <div class="col">
+	                Изучено
+	            </div>
+		        <div class="col">
+			        {{ questions_done|length }}
+		        </div>
+
+	        </div>
+			<div class="collapse" id="questionsDone">
+			{% if quid %}
+			  {% for key, values in quid.items %}
+			        <div class="row">
+				        <div class="col">{{ key }}:</div>
+			            <div class="col">
+				        {{ values }}
+			            </div>
+			        </div>
+		        {% endfor %}
+			{% endif %}
+			</div>
+	        <div class="row">
+	            <div class="col">
+	                <a href="/" class="btn btn-lg btn-primary btn-block" role="button">В меню</a>
+	            </div>
+	        </div>
+	    </div>
+
+		  <p class="mt-5 mb-3 text-muted text-center">&copy;2018</p>
+	  </div>
+ </body>
+</html>

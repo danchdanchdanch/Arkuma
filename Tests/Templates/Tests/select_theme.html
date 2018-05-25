@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    {% load static %}
+	  <link rel="shortcut icon" href="{% static "Tests/logo.ico" %}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="{% static "Tests/js/jquery-3.3.1.min.js" %}"></script>
+	  <script src="{% static "Tests/js/tools.js" %} "></script>
+	<script src="{% static "Tests/js/questions.js" %} "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="{% static "Tests/theme.css" %}" rel="stylesheet">
+
+    <title>ABC : Выберите тему обучения</title>
+  </head>
+  <body>
+  <div class="form-signin">
+
+		  <div class="text-center">
+			  <a href="/">
+		    <img class="mb-4" src="{% static "Tests/logo.svg" %}" alt="" width="72" height="72">
+			  </a>
+			  <h1 class="h3 mb-3 font-weight-normal">Выбери тему</h1>
+		  </div>
+			{% csrf_token %}
+
+	  <div id="buttons">
+			<div class="question-container" id="q-t">
+			{% for theme in themes %}
+				<a href="/{{ type }}/theme?theme_id={{ theme.id }}" class="btn btn-lg btn-primary btn-block btn-top" type="study"> {{ theme.name }}</a>
+				{% endfor %}
+			</div>
+    </div>
+<p class="mt-5 mb-3 text-muted text-center">&copy;2018</p>
+	  </div>
+  </body>
+</html>

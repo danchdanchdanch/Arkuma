@@ -1,0 +1,29 @@
+.row {
+    margin: 5px 5px 20px 5px;
+    padding: 1px 1px 1px 1px;
+}
+
+.question-container {
+  width: inherit;
+  max-width: 50%;
+    min-height: 230px;
+    min-width: 500px;
+  padding: 5px;
+  margin: auto;
+    background-color: #dedede;
+     overflow: auto;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.form-signin {
+  width: 100%;
+  margin: auto;
+}
+
+#buttons {
+    max-height: 200px;
+    overflow:auto;
+}

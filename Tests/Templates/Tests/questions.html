@@ -1,0 +1,234 @@
+{% block content %}
+			{% csrf_token %}
+			{% if question.type == "QUESTION_TRANSLATE" %}
+			    <div class="question-container" id="q-t" question_id="{{ question.id }}" question_number="{{page}}" question_count="{{ questions_count }}" question_type="{{ question.type }}">
+			        <div class="row">
+			          <div class="col-10 question-heading">
+			              <div class="row">
+				              {% if learning %}
+			                <h1 class="h4 mb-3 font-weight-normal">Вопрос {{page}}/{{ questions_count}}</h1>
+					              {% endif %}
+			              </div>
+			              {% autoescape off %}
+			                  <span class="h6">{{ question.text.text }} </span>
+				              {% endautoescape %}
+							<h1 class="h6 mb-2 font-weight-bold">{{ question.exercise }}</h1>
+			        </div>
+			      </div>
+			        <div class="row ">
+			            <div class="col-xs-2 col-sm-2 col-md-2 ">
+
+			            </div>
+			            <div class="col-12 col-sm-6 col-md-8">
+			                    <input type="text" id="answer" class="form-control form-control-lg" placeholder="Перевод" onKeyPress="return stopRKey()" required autofocus>
+			            </div>
+			            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+			            </div>
+			          </div>
+				<div class="row" >
+				        <div class="col-sm" id="alerts">
+				        </div>
+			        </div>
+			        {% if learning %}
+			        <div class="row row-bot">
+				        <div class="col-sm">
+					         {% if test.has_previous %}
+					            <a href="?theme_id={{ theme_id }}&question={{ test.previous_page_number }}" class="btn btn-primary btn-block" role="button">Назад</a>
+					        {% endif %}
+				        </div>
+				        <div class="col-sm">
+					        {% if questions_count == page %}
+						        <a href="/result" onclick="saveAnswer();" class="btn btn-primary btn-block" id="check" role="button">Проверить</a>
+					        {% endif %}
+
+					        {%  if test.has_next  %}
+				                <a href="?theme_id={{ theme_id }}&question={{ test.next_page_number }}" id="check" onclick="saveAnswer();" class="btn btn-primary btn-block" role="button">Дальше</a>
+					        {% endif %}
+				        </div>
+			      </div>
+				    {% else %}
+				    <div class="row row-bot">
+			        <div class="col-sm">
+					        <button id="check" onclick="checkAnswer()"  class="btn btn-primary btn-block" role="button">Проверить</button>
+			        </div>
+				    {% endif %}
+			    </div>
+			{% endif %}
+			{% if question.type == "QUESTION_SELECT" %}
+			    <div class="question-container" id="q-t" question_id="{{ question.id }}" question_number="{{page}}" question_count="{{ questions_count }}" question_type="{{ question.type }}">
+			        <div class="row">
+			          <div class="col-10 question-heading">
+			              <div class="row">
+				              {% if learning %}
+			                <h1 class="h4 mb-3 font-weight-normal">Вопрос {{page}}/{{ questions_count}}</h1>
+					              {% endif %}
+			              </div>
+			                  {% autoescape off %}
+			                  <span class="h6">{{ question.text.text }} </span>
+				              {% endautoescape %}
+							<h1 class="h6 mb-2 font-weight-bold">{{ question.exercise }}</h1>
+			        </div>
+			      </div>
+
+			        <div class="row row-buttons">
+			        <div class="col">
+                    <div class="btn-group btn-group-toggle special" data-toggle="buttons">
+                    <label class="btn btn-secondary active " var="1">
+                        <input type="radio" name="options" id="id1" autocomplete="off"  value="{{ var1 }}" onKeyPress="return stopRKey()" checked> {{ var1 }}
+                    </label>
+
+                    <label class="btn btn-secondary " var="2">
+                        <input type="radio" name="options" id="id2" autocomplete="off" value="{{ var2 }}" onKeyPress="return stopRKey()" > {{ var2 }}
+                    </label>
+
+                        <label class="btn btn-secondary" var="3">
+                            <input type="radio" name="options" id="id3" autocomplete="off" value="{{ var3 }}" onKeyPress="return stopRKey()" > {{ var3 }}
+                        </label>
+
+                        <label class="btn btn-secondary" var="4">
+                            <input type="radio" name="options" id="id4" autocomplete="off" value="{{ var4 }}" onKeyPress="return stopRKey()" > {{ var4 }}
+                        </label>
+                    </div>
+                    </div>
+                </div>
+				<div class="row" >
+				        <div class="col-sm" id="alerts">
+				        </div>
+			        </div>
+			        {% if learning %}
+			        <div class="row row-bot">
+				        <div class="col-sm">
+					         {% if test.has_previous %}
+					            <a href="?theme_id={{ theme_id }}&question={{ test.previous_page_number }}" class="btn btn-primary btn-block" role="button">Назад</a>
+					        {% endif %}
+				        </div>
+				        <div class="col-sm">
+					        {% if questions_count == page %}
+						        <a href="/result" onclick="saveAnswer();" class="btn btn-primary btn-block" id="check" role="button">Проверить</a>
+					        {% endif %}
+
+					        {%  if test.has_next  %}
+				                <a href="?theme_id={{ theme_id }}&question={{ test.next_page_number }}" id="check" onclick="saveAnswer();" class="btn btn-primary btn-block" role="button">Дальше</a>
+					        {% endif %}
+				        </div>
+			      </div>
+				    {% else %}
+				    <div class="row row-bot">
+			        <div class="col-sm">
+					        <button id="check" onclick="checkAnswer()"  class="btn btn-primary btn-block" role="button">Проверить</button>
+			        </div>
+				    {% endif %}
+			    </div>
+			{% endif %}
+			{% if question.type == "QUESTION_IRREGULAR_VERB" %}
+			    <div class="question-container" id="q-t" question_id="{{ question.id }}" question_number="{{page}}" question_count="{{ questions_count }}" question_type="{{ question.type }}">
+			        <div class="row">
+			          <div class="col-10 question-heading">
+			              <div class="row">
+				              {% if learning %}
+			                <h1 class="h4 mb-3 font-weight-normal">Вопрос {{page}}/{{ questions_count}}</h1>
+					              {% endif %}
+			              </div>
+				              {% autoescape off %}
+			                  <span><h1 class="h6 mb-2 font-weight-bold">{{ question.text.text }}</h1> </span>
+				              {% endautoescape %}
+			        </div>
+			      </div>
+			        <div class="row ">
+				        <div class="col-sm">
+				                <input type="text" id="firstForm" class="form-control form-control-lg" placeholder="Первая форма" onKeyPress="return stopRKey()" value="{{ var1 }}" required autofocus>
+				        </div>
+				        <div class="col-sm">
+				                <input type="text" id="secondForm" class="form-control form-control-lg" placeholder="Вторая форма" onKeyPress="return stopRKey()" value="{{ var2 }}" required autofocus>
+				        </div>
+				        <div class="col-sm">
+				                <input type="text" id="thirdForm" class="form-control form-control-lg" placeholder="Третья форма" onKeyPress="return stopRKey()" value="{{ var3 }}" required autofocus>
+				        </div>
+				      </div>
+				<div class="row" >
+				        <div class="col-sm" id="alerts">
+				        </div>
+			        </div>
+			        {% if learning %}
+			        <div class="row row-bot">
+				        <div class="col-sm">
+					         {% if test.has_previous %}
+					            <a href="?theme_id={{ theme_id }}&question={{ test.previous_page_number }}" class="btn btn-primary btn-block" role="button">Назад</a>
+					        {% endif %}
+				        </div>
+				        <div class="col-sm">
+					        {% if questions_count == page %}
+						        <a href="/result" onclick="saveAnswer();" class="btn btn-primary btn-block" id="check" role="button">Проверить</a>
+					        {% endif %}
+
+					        {%  if test.has_next  %}
+				                <a href="?theme_id={{ theme_id }}&question={{ test.next_page_number }}" id="check" onclick="saveAnswer();" class="btn btn-primary btn-block" role="button">Дальше</a>
+					        {% endif %}
+				        </div>
+			      </div>
+				    {% else %}
+				    <div class="row row-bot">
+			        <div class="col-sm">
+					        <button id="check" onclick="checkAnswer()"  class="btn btn-primary btn-block" role="button">Проверить</button>
+			        </div>
+				    {% endif %}
+			    </div>
+			{% endif %}
+			{% if question.type == "QUESTION_MISSED" %}
+			    <div class="question-container" id="q-t" question_id="{{ question.id }}" question_number="{{page}}" question_count="{{ questions_count }}" question_type="{{ question.type }}">
+			        <div class="row">
+			          <div class="col-10 question-heading">
+			              <div class="row">
+				              {% if learning %}
+			                <h1 class="h4 mb-3 font-weight-normal">Вопрос {{page}}/{{ questions_count}}</h1>
+					              {% endif %}
+			              </div>
+			                  {% autoescape off %}
+			                  <span class="h6">{{ question.text.text }} </span>
+				              {% endautoescape %}
+							<h1 class="h6 mb-2 font-weight-bold">{{ question.exercise }}</h1>
+
+			        </div>
+			      </div>
+			        <div class="row ">
+			            <div class="col-xs-2 col-sm-2 col-md-2 ">
+
+			            </div>
+			            <div class="col-12 col-sm-6 col-md-8">
+			                    <input type="text" id="answer" class="form-control form-control-lg" placeholder="{{ question.variants }}"  onKeyPress="return stopRKey()" required autofocus>
+			            </div>
+			            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+			            </div>
+			          </div>
+				<div class="row" >
+				        <div class="col-sm" id="alerts">
+				        </div>
+			        </div>
+			    {% if learning %}
+			        <div class="row row-bot">
+				        <div class="col-sm">
+					         {% if test.has_previous %}
+					            <a href="?theme_id={{ theme_id }}&question={{ test.previous_page_number }}" class="btn btn-primary btn-block" role="button">Назад</a>
+					        {% endif %}
+				        </div>
+				        <div class="col-sm">
+					        {% if questions_count == page %}
+						        <a href="/result" onclick="saveAnswer();" class="btn btn-primary btn-block" id="check" role="button">Проверить</a>
+					        {% endif %}
+
+					        {%  if test.has_next  %}
+				                <a href="?theme_id={{ theme_id }}&question={{ test.next_page_number }}" id="check" onclick="saveAnswer();" class="btn btn-primary btn-block" role="button">Дальше</a>
+					        {% endif %}
+				        </div>
+			      </div>
+				    {% else %}
+				    <div class="row row-bot">
+			        <div class="col-sm">
+					        <button id="check" onclick="checkAnswer()"  class="btn btn-primary btn-block" role="button">Проверить</button>
+			        </div>
+				    {% endif %}
+			    </div>
+			{% endif %}
+{% endblock %}
